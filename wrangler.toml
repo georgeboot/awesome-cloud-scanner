@@ -1,0 +1,16 @@
+name = "awesome-cloud-scanner-backend"
+type = "javascript"
+account_id = "21decfb80266c1f3f49a9570a6535c44"
+workers_dev = true
+compatibility_date = "2021-10-12"
+
+[build]
+command = "yarn install && yarn build-worker"
+
+[build.upload]
+format = "modules"
+dir = "./backend/dist"
+main = "./worker.mjs"
+
+[vars]
+TEST_VAR = "working"
