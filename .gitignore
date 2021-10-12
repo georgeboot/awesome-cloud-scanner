@@ -1,6 +1,6 @@
 /target
 /dist
-/backend/dist
+/worker-dist
 **/*.rs.bk
 Cargo.lock
 bin/
