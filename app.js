@@ -40,8 +40,10 @@ Alpine.data('page', () => ({
             return
         }
         const constraints = { 
-            video: true,
-            audio: false
+            video: {
+                facingMode: 'environment',
+            },
+            audio: false,
         }
         
         // Start video stream
