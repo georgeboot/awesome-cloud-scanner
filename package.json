@@ -4,12 +4,12 @@
   "version": "1.0.0",
   "description": "An awesome QR code scanner built using Cloudflare tools.",
   "main": "index.js",
-  "module": "worker-dist/worker.mjs",
+  "module": "dist-worker/worker.mjs",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "serve": "vite preview",
-    "build-worker": "rollup backend/worker.js --file worker-dist/worker.mjs --format esm --plugin commonjs --plugin node-resolve"
+    "build-worker": "rollup -c"
   },
   "author": "George Boot <884482+georgeboot@users.noreply.github.com>",
   "license": "MIT",
@@ -19,6 +19,7 @@
     "autoprefixer": "^10.3.7",
     "postcss": "^8.3.9",
     "rollup": "^2.58.0",
+    "rollup-plugin-terser": "^7.0.2",
     "vite": "^2.6.4"
   },
   "dependencies": {

@@ -10,7 +10,7 @@ watch_dir = "backend"
 
 [build.upload]
 format = "modules"
-dir = "./worker-dist"
+dir = "./dist-worker"
 main = "./worker.mjs"
 
 [vars]
