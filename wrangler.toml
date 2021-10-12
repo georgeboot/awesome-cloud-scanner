@@ -6,6 +6,7 @@ compatibility_date = "2021-10-12"
 
 [build]
 command = "yarn install && yarn build-worker"
+watch_dir = "backend"
 
 [build.upload]
 format = "modules"
