@@ -1,0 +1,11 @@
+name = "s3-proxy"
+type = "webpack"
+account_id = "21decfb80266c1f3f49a9570a6535c44"
+
+zone_id = "1a04923c14609d59c5cf795330780cc8"
+
+[vars]
+ASSETS_PREFIX = "/assets/"
+AWS_BUCKET_PREFIX = ""
+AWS_REGION = "eu-central-1"
+AWS_BUCKET = "gymme-assets"
