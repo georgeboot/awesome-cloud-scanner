@@ -6,8 +6,13 @@
     <title>Awesome Cloud Scanner</title>
 </head>
 <body x-data="page">
-    <div x-show="!scannerEnabled" class="flex items-center justify-center w-screen h-screen">
-        <button type="button" @click="initScanner" class="p-4 text-green-800 bg-green-100 rounded-lg shadow-sm focus:outline-none focus:ring ring-green-600 ring-offset-4 ring-offset-white">start scanning</button>
+    <div x-show="!scannerEnabled" class="flex flex-col items-center justify-center w-screen h-screen gap-4">
+        <button type="button" @click="initScanner" class="p-4 text-green-800 bg-green-100 rounded-lg shadow-sm focus:outline-none focus:ring ring-green-600 ring-offset-4 ring-offset-white">
+            Grant camera access & start scanning
+        </button>
+        <p class="text-gray-500">
+            The scanner will pick up any random QR code. Generate one at <a class="text-gray-600 underline hover:text-gray-800" href="https://www.qrcode-monkey.com/#text" target="_blank">QRCode Monkey</a>.
+        </p>
     </div>
     <div class="relative w-screen h-screen">
         <video x-ref="video" class="block" autoplay width="1000" height="1000"></video>
