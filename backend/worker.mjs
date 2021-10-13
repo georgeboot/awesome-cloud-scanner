@@ -1,5 +1,6 @@
 import { Router } from 'itty-router'
 import { error, json , missing } from 'itty-router-extras'
+import { withCors } from './withCors'
 
 export { QrCode } from './QrCode.mjs'
 
@@ -14,6 +15,8 @@ router.get('/', (request, env) => {
 
   return json({ message: 'Hi there!' })
 })
+
+router.options('/scan', withCors({ methods: 'POST' }))
 
 router.post('/scan', async (request, env) => {
     try {

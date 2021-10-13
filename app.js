@@ -13,10 +13,19 @@ Alpine.data('page', () => ({
     scannerEnabled: false,
     result: null,
     barcodeDetector: null,
+    workerUrl: 'https://awesome-cloud-scanner-backend.gg.workers.dev/scan',
+    maxScansAllowed: 1,
 
-    onScan({ rawValue: code }) {
-        console.log(code)
-        this.result = true
+    async onScan({ rawValue: code }) {
+        const response = await fetch(this.workerUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ code }),
+        })
+        const responseData = await response.json()
+        this.result = responseData.scanCount <= this.maxScansAllowed
+
+        console.log(responseData)
 
         this.scheduleNextScan(2500)
     },
