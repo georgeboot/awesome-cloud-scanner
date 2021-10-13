@@ -1,8 +1,9 @@
-export const withCors = (options = {}) => request => {
+export const handleCors = (options = {}) => request => {
     const {
         origin = '*',
         methods = 'GET, POST, PATCH, DELETE',
         headers = 'referer, origin, content-type',
+        maxAge = null,
         allowCredentials = false,
     } = options
 
@@ -19,6 +20,10 @@ export const withCors = (options = {}) => request => {
         if (allowCredentials) {
             corsHeaders['Access-Control-Allow-Credentials'] = 'true'
         }
+
+        if (maxAge) {
+            corsHeaders['Access-Control-Max-Age'] = maxAge
+        }
         
         // Handle CORS pre-flight request.
         return new Response(null, {
@@ -34,3 +39,14 @@ export const withCors = (options = {}) => request => {
         }
     })
 }
+
+export const wrapCorsHeader = (response, options = {}) => {
+    const {
+        origin = '*',
+    } = options
+
+    response.headers.set('Access-Control-Allow-Origin', origin)
+
+    return response
+}
+  

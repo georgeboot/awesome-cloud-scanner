@@ -1,6 +1,6 @@
 import { Router } from 'itty-router'
 import { error, json , missing } from 'itty-router-extras'
-import { withCors } from './withCors'
+import { handleCors, wrapCorsHeader } from './withCors'
 
 export { QrCode } from './QrCode.mjs'
 
@@ -16,7 +16,7 @@ router.get('/', (request, env) => {
   return json({ message: 'Hi there!' })
 })
 
-router.options('/scan', withCors({ methods: 'POST' }))
+router.options('/scan', handleCors({ methods: 'POST', maxAge: 86400 }))
 
 router.post('/scan', async (request, env) => {
     try {
@@ -33,14 +33,9 @@ router.post('/scan', async (request, env) => {
         let response = await QrCodeInstance.fetch('https://dummy.com')
         let data = await response.json()
   
-        return json({ success: true, code, scanCount: data.scanCount }, {
+        return wrapCorsHeader(json({ success: true, code, scanCount: data.scanCount }, {
             status: 201,
-            headers: {
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Methods': 'POST',
-                'Access-Control-Allow-Headers': 'content-type',
-            },
-        })
+        }))
     } catch (err) {
         console.error(err)
         return error(400, 'Error during scan call')
