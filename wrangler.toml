@@ -17,4 +17,4 @@ main = "./worker.mjs"
 TEST_VAR = "working"
 
 [durable_objects]
-bindings = [{name = "QR", class_name = "QrCodeDurableObject"}]
+bindings = [{name = "QrCode", class_name = "QrCode"}]

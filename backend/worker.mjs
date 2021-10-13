@@ -1,7 +1,7 @@
 import { Router } from 'itty-router'
 import { error, json , missing } from 'itty-router-extras'
 
-export { QrCodeDurableObject } from './QrCodeDurableObject.mjs'
+export { QrCode } from './QrCode.mjs'
 
 const router = Router()
 
@@ -16,23 +16,24 @@ router.get('/', (request, env) => {
 })
 
 router.post('/scan', async (request, env) => {
-    let id = env.QR.idFromName('A')
-    let obj = env.QR.get(id)
-
     try {
         const content = await request.json()
         const code = content.code
 
         if (! code) {
-            throw 'Error'
+            throw 'No code set'
         }
 
-        let response = await obj.fetch(code)
+        let id = env.QrCode.idFromName(code)
+        let QrCodeInstance = env.QrCode.get(id)
+
+        let response = await QrCodeInstance.fetch('https://dummy.com')
         let data = await response.json()
   
         return json({ success: true, code, scanCount: data.scanCount }, { status: 201 })
     } catch (err) {
-        return error(400, 'Error')
+        console.error(err)
+        return error(400, 'Error during scan call')
     }
 })
 
