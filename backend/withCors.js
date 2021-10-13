@@ -2,7 +2,7 @@ export const withCors = (options = {}) => request => {
     const {
         origin = '*',
         methods = 'GET, POST, PATCH, DELETE',
-        headers = 'authorization, referer, origin, content-type',
+        headers = 'referer, origin, content-type',
         allowCredentials = false,
     } = options
 
@@ -14,11 +14,6 @@ export const withCors = (options = {}) => request => {
             'Access-Control-Allow-Origin': origin,
             'Access-Control-Allow-Methods': methods,
             'Access-Control-Allow-Headers': headers,
-        }
-
-        if (origin === '*') {
-            corsHeaders['Access-Control-Allow-Origin'] = request.headers.get('Origin')
-            corsHeaders['Vary'] = 'Origin'
         }
 
         if (allowCredentials) {

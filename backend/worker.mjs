@@ -33,7 +33,14 @@ router.post('/scan', async (request, env) => {
         let response = await QrCodeInstance.fetch('https://dummy.com')
         let data = await response.json()
   
-        return json({ success: true, code, scanCount: data.scanCount }, { status: 201 })
+        return json({ success: true, code, scanCount: data.scanCount }, {
+            status: 201,
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'POST',
+                'Access-Control-Allow-Headers': 'content-type',
+            },
+        })
     } catch (err) {
         console.error(err)
         return error(400, 'Error during scan call')
