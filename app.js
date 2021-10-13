@@ -23,9 +23,7 @@ Alpine.data('page', () => ({
             body: JSON.stringify({ code }),
         })
         const responseData = await response.json()
-        this.result = responseData.scanCount <= this.maxScansAllowed
-
-        console.log(responseData)
+        this.result = responseData.scanCount
 
         this.scheduleNextScan(2500)
     },
