@@ -17,15 +17,19 @@ Alpine.data('page', () => ({
     maxScansAllowed: 1,
 
     async onScan({ rawValue: code }) {
-        const response = await fetch(this.workerUrl, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ code }),
-        })
-        const responseData = await response.json()
-        this.result = responseData.scanCount <= this.maxScansAllowed
+        try {
+            const response = await fetch(this.workerUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ code }),
+            })
+            const responseData = await response.json()
+            this.result = responseData.scanCount <= this.maxScansAllowed
 
-        console.log(responseData)
+            console.log(responseData)
+        } catch (error) {
+            console.error(error)
+        }
 
         this.scheduleNextScan(2500)
     },
@@ -61,7 +65,7 @@ Alpine.data('page', () => ({
 
         this.scannerEnabled = true
 
-        this.detectCode()
+        this.scheduleNextScan(2500)
     },
 
     async detectCode() {

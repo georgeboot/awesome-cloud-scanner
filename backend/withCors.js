@@ -16,6 +16,11 @@ export const withCors = (options = {}) => request => {
             'Access-Control-Allow-Headers': headers,
         }
 
+        if (origin === '*') {
+            corsHeaders['Access-Control-Allow-Origin'] = request.headers.get('Origin')
+            corsHeaders['Vary'] = 'Origin'
+        }
+
         if (allowCredentials) {
             corsHeaders['Access-Control-Allow-Credentials'] = 'true'
         }
